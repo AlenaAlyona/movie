@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Switch,
-  Route,
-  NavLink,
-  BrowserRouter as Router,
-} from "react-router-dom";
-import Home from "../pages/AboutPage";
-import About from "../pages/AboutPage";
-import DiscoverMovies from "../pages/DiscoverMoviesPage";
+import { NavLink } from "react-router-dom";
 
 export default function NavBar() {
   return (

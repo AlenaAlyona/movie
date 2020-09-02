@@ -1,5 +1,3 @@
-import { Switch, Route } from "react-router-dom";
-
 import React, { Component } from "react";
 
 class DiscoverMovies extends Component {
