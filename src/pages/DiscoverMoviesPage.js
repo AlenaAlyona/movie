@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Timeout from "await-timeout";
 import Film from "../components/Film";
 import "./DiscoverMoviesPage.css";
 import { Link, useHistory, useParams } from "react-router-dom";
@@ -23,8 +22,6 @@ export default function DiscoverMoviesPage() {
       const queryParam = encodeURIComponent(params.searchtext);
       // console.log("Start searching for:", searchText);
       set_status("searching");
-
-      await Timeout.set(2000);
 
       const data = await axios.get(
         `https://omdbapi.com/?apikey=f2d4bd6a&s=${queryParam}`
