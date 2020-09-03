@@ -20,8 +20,8 @@ export default function DiscoverMoviesPage() {
 
   useEffect(() => {
     async function fetchSomeData() {
-      const queryParam = encodeURIComponent(params.searchText);
-      console.log("Start searching for:", searchText);
+      const queryParam = encodeURIComponent(params.searchtext);
+      // console.log("Start searching for:", searchText);
       set_status("searching");
 
       await Timeout.set(2000);
@@ -36,7 +36,7 @@ export default function DiscoverMoviesPage() {
       set_film(data.data.Search);
     }
     fetchSomeData();
-  }, [params.searchText]);
+  }, [params]);
 
   return (
     <div>
