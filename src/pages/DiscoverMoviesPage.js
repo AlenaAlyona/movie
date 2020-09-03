@@ -1,30 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Timeout from "await-timeout";
 import Film from "../components/Film";
 import "./DiscoverMoviesPage.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
+import axios from "axios";
 
 export default function DiscoverMoviesPage() {
   const [searchText, set_searchText] = useState("");
   const [status, set_status] = useState("idle");
   const [films, set_film] = useState([]);
+  const history = useHistory();
+  const params = useParams();
+  console.log("PARAMS", params);
 
-  const search = async () => {
-    console.log("Start searching for:", searchText);
-    set_status("searching");
-    await Timeout.set(2000);
-
-    const queryParam = encodeURIComponent(searchText);
-
-    const data = await fetch(
-      `https://www.omdbapi.com/?s=${queryParam}&apikey=f2d4bd6a`
-    ).then((r) => r.json());
-
-    console.log("Success!", data);
-    // set_searchText(data.data)
-    set_film(data.Search);
-    set_status("done");
+  const search = () => {
+    const routeParam = encodeURIComponent(searchText);
+    history.push(`/discover/${routeParam}`);
   };
+
+  useEffect(() => {
+    async function fetchSomeData() {
+      const queryParam = encodeURIComponent(params.searchText);
+      console.log("Start searching for:", searchText);
+      set_status("searching");
+
+      await Timeout.set(2000);
+
+      const data = await axios.get(
+        `https://omdbapi.com/?apikey=f2d4bd6a&s=${queryParam}`
+      );
+
+      console.log("Success!", data);
+      // set_searchText(data.data)
+      set_status("done");
+      set_film(data.data.Search);
+    }
+    fetchSomeData();
+  }, [params.searchText]);
 
   return (
     <div>
@@ -33,6 +45,7 @@ export default function DiscoverMoviesPage() {
       <p>
         <input
           value={searchText}
+          type="text"
           onChange={(e) => set_searchText(e.target.value)}
         />
         <button onClick={search}>Search</button>
@@ -40,7 +53,7 @@ export default function DiscoverMoviesPage() {
       <div className="image-list">
         {films.map((film) => {
           return (
-            <Link key={film.imdbID} to={`/discover/${film.imdbID}`}>
+            <Link key={film.imdbID} to={`/movie/${film.imdbID}`}>
               <Film title={film.Title} year={film.Year} img={film.Poster} />
             </Link>
           );
