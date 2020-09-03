@@ -17,7 +17,7 @@ export default function DiscoverMoviesPage() {
     const queryParam = encodeURIComponent(searchText);
 
     const data = await fetch(
-      `http://www.omdbapi.com/?s=${queryParam}&apikey=f2d4bd6a`
+      `https://www.omdbapi.com/?s=${queryParam}&apikey=f2d4bd6a`
     ).then((r) => r.json());
 
     console.log("Success!", data);

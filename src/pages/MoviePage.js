@@ -14,7 +14,7 @@ export default function MoviePage() {
       console.log("I'm gonna fetch some data!");
 
       const res = await axios.get(
-        `http://www.omdbapi.com/?i=${route_parameters.imdb_id}&plot=full&apikey=f2d4bd6a`
+        `https://www.omdbapi.com/?i=${route_parameters.imdb_id}&plot=full&apikey=f2d4bd6a`
       );
 
       console.log("Got back:", res);
